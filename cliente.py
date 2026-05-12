@@ -4,7 +4,7 @@ import threading
 import sys
 import time
 
-HOST = "127.0.0.1"
+HOST = "127.0.0.1" # dirección IP del servidor
 PORT = 9999
 MAX_REINTENTOS = 5
 
@@ -14,7 +14,7 @@ def recibir(sock):
     while True:
         try:
             datos = sock.recv(1024)
-            if datos:
+            if datos: # si tiene contenido
                 print(f"\r{datos.decode().strip()}\n> ", end="", flush=True)
             else:
                 print("\n[cliente] Servidor cerrado.")
@@ -45,7 +45,7 @@ def iniciar_cliente():
     nombre = input("Tu nombre: ")
     sock = conectar()
 
-    # Hilo separado para recibir mensajes
+    # Hilo separado para recibir mensajes en segundo plano
     hilo = threading.Thread(target=recibir, args=(sock,), daemon=True)
     hilo.start()
 
